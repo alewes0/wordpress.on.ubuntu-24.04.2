@@ -1,16 +1,16 @@
-Uppdatera systemet
+#Uppdatera systemet
 sudo apt update && sudo apt upgrade -y
 
-Installera Nginx
+#Installera Nginx
 sudo apt install nginx -y
 
-Titta om nginx är igång
+#Titta om nginx är igång
 systemctl status nginx.serivce
 
-Installera php.
+#Installera php.
 sudo apt install php-fpm php-common php-mysql php-xml php-snmp php-intl php-curl php-gd php-imagick php-cli php-dev php-imap php-mbstring php-opcache php-redis php-soap php-zip -y
 
-Installera MariaDB
+#Installera MariaDB
 sudo apt install mariadb-server -y
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
@@ -23,7 +23,7 @@ GRANT ALL PRIVILEGES ON wpdb.* TO 'wpuser'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 
-Installera WordPress
+#Installera WordPress
 cd /var/www/html
 sudo wget https://wordpress.org/latest.zip
 sudo unzip latest.zip
@@ -31,13 +31,13 @@ sudo rm latest.zip
 sudo mv wordpress/* .
 sudo rmdir wordpress/
 
-Konfigurera Wordpress
+#Konfigurera Wordpress
 
 sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 sudo micro /var/www/html/wp-config.php 
-I denna fil måste du skriva in på samma sätt som det står nedan.
+#I denna fil måste du skriva in på samma sätt som det står nedan.
 
-Namnet för databasen för Wordpress
+#Namnet för databasen för Wordpress
 define( 'DB_NAME', 'wpdb' );
 
 Database username
@@ -52,14 +52,14 @@ Database hostname
 
 define( 'DB_HOST', 'localhost' );
 
-När du är klar spara och stäng filen.
+#När du är klar spara och stäng filen.
 sudo chown -R www-data:www-data /var/www/html
 sudo chmod -R 755 /var/www/html
 
-Konfigurera virtual hosten (NGINX)
+#Konfigurera virtual hosten (NGINX)
 sudo micro /etc/nginx/sites-available/default
 
-Ta bort allt i filen och kopiera in
+#Ta bort allt i filen och kopiera in
 server {
     listen 80;
     server_name wplocal;
@@ -83,11 +83,11 @@ server {
     }
 }
 
-Sedan stäng filen
+#Sedan stäng filen
 sudo nginx-t
 sudo systemctl restart nginx.service
 
-Gå till din browser 
+#Gå till din browser 
 http://wplocal.localhost
 
-Installera Wordpress.
+#Installera Wordpress.
